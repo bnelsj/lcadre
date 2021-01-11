@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/bnelsj/lcadre.svg?branch=main)](https://travis-ci.com/bnelsj/lcadre)
+
 # LCaDRE: Library Complexity and Duplication Rate Estimation
 
 ## Description
