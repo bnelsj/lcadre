@@ -215,6 +215,7 @@ class Lcadre(object):
     def read_input(self):
         """Read alignment file and process all found read pairs
         """
+        logger.info(f"Reading alignment file {self.alignment_file}")
         pair_generator = self.pair_generator()
         for read_pair in pair_generator:
             self.process_pair(read_pair)
