@@ -14,4 +14,4 @@ install:
   - source activate lcadre
   - python --version
 script:
-  - python -m unittest discover
+  - python -m unittest discover tests
