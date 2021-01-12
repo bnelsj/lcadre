@@ -25,6 +25,29 @@ conda activate lcadre
 python lcadre.py <alignment file> -n <read pairs in full run>
 ```
 
+## Tests
+
+Tests can be run with the following command:
+```
+python -m unittest discover
+```
+
+## Example output
+
+```
+[lcadre - 2021-01-11 17:49:49,279] LCaDRE: Library Complexity and Duplication Rate Estimation
+[lcadre - 2021-01-11 17:49:49,280] Reading alignment file NA12878.rn.bam
+[lcadre - 2021-01-11 17:50:13,705] Found 3,685,262 read pairs
+[lcadre - 2021-01-11 17:50:13,705] Found 3,508,436 distinct signatures
+[lcadre - 2021-01-11 17:50:13,705] Found 3,338,134 signatures that occurred exactly once
+[lcadre - 2021-01-11 17:50:13,705] Found 163,999 signatures that occurred exactly twice
+[lcadre - 2021-01-11 17:50:13,705] Estimated distinct signatures remaining in library: 33,973,191
+[lcadre - 2021-01-11 17:50:13,705] Library complexity estimate: 37,481,627
+[lcadre - 2021-01-11 17:50:13,705] Estimated signatures at 100,000,000 read pairs: 34,876,215
+[lcadre - 2021-01-11 17:50:13,705] Observed duplication rate: 0.048
+[lcadre - 2021-01-11 17:50:13,706] Extrapolated duplication rate: 0.651
+```
+
 ## Evaluation
 
 Tests were performed on chr11 of the low coverage 1000 genomes dataset for NA12878, available [here](ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/NA12878/alignment/NA12878.chrom11.ILLUMINA.bwa.CEU.low_coverage.20121211.bam). Picard's EstimateLibraryComplexity tool was used for comparison.
@@ -32,12 +55,10 @@ Tests were performed on chr11 of the low coverage 1000 genomes dataset for NA128
 | | LCaDRE | Picard ELC |
 | --- | --- | --- |
 | Observed duplication rate | 0.048 | 0.056 |
-| Estimated library size | 37481627 | 27065571 |
+| Estimated library complexity | 37481627 | 27065571 |
 | Extrapolated duplication rate (100M read pairs) | 0.651 | NA |
+| Runtime (seconds) | 25 | 31 |
 
-## Tests
+It's good that the observed duplication rate is so close to Picard's measure, and it's not surprising that the library complexity estimates are so different--this kind of extrapolation is imprecise, and confidence intervals would likely overlap. I was initially surprised to see that lcadre's runtime is faster than Picard's, since python tends to be much slower than java, but picard is doing a lot of additional things that can be somewhat time consuming, including actually looking at query sequence.
 
-Tests can be run with the following command:
-```
-python -m unittest discover
-```
+At this point, I would trust picard's library complexity estimate over lcadre's due to the former's maturity and wide use. I was unable to find public libraries with high duplicate rate, which would be extremely useful for testing the accuracy of the extrapolation under more conditions.
