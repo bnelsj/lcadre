@@ -10,6 +10,7 @@ import lcadre
 logger = logging.getLogger("lcadre")
 logger.setLevel(logging.ERROR)
 
+
 class MockPair:
     def __init__(self,
                  reference_name=None,
@@ -156,6 +157,7 @@ class TestLcadre(unittest.TestCase):
         test = lcadre.Lcadre(self.empty_fn, self.n)
         with self.assertRaises(ZeroDivisionError):
             test.run()
+
 
 if __name__ == '__main__':
     unittest.main()

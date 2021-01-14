@@ -26,6 +26,7 @@ format = "[%(name)s - %(asctime)s] %(message)s"
 logging.basicConfig(format=format, level=logging.INFO)
 logger = logging.getLogger("lcadre")
 
+
 class Lcadre(object):
     """
     Class for estimating library complexity and duplication rate from an alignment file.
@@ -170,8 +171,6 @@ class Lcadre(object):
         if self.doubletons == 0:
             raise ZeroDivisionError("No doubletons found. Likely due to too few reads.")
 
-        ratio = self.singletons / self.doubletons
-
         self.total_read_pairs = sum(self.counter.values())
         self.total_signatures = self.singletons + self.doubletons + others
 
@@ -281,6 +280,7 @@ def main():
     logger.info("LCaDRE: Library Complexity and Duplication Rate Estimation")
     lcadre = Lcadre(**args)
     lcadre.run()
+
 
 if __name__ == "__main__":
     main()
