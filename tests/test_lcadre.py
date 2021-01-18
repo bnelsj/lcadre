@@ -8,7 +8,7 @@ import unittest
 import lcadre
 
 logger = logging.getLogger("lcadre")
-logger.setLevel(logging.ERROR)
+logger.setLevel(logging.CRITICAL)
 
 
 class MockPair:
@@ -53,7 +53,8 @@ class TestLcadre(unittest.TestCase):
 
         self.read_blank = MockPair()
         self.read_a = MockPair(reference_name="chr1", reference_start=100, reference_end=200, query_alignment_start=10)
-        self.read_b = MockPair(reference_name="chr1", reference_start=100, reference_end=200, query_alignment_start=10, is_reverse=True)
+        self.read_b = MockPair(reference_name="chr1", reference_start=100, reference_end=200, query_alignment_start=10,
+                               is_reverse=True)
         self.read_c = MockPair(reference_name="chr2", reference_start=100, reference_end=200, query_alignment_start=10)
 
     def tearDown(self):
